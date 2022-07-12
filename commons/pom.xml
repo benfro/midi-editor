@@ -21,6 +21,13 @@
             <groupId>com.miglayout</groupId>
             <artifactId>miglayout-javafx</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.guigarage/css-helper -->
+        <dependency>
+            <groupId>com.guigarage</groupId>
+            <artifactId>css-helper</artifactId>
+            <version>0.7</version>
+        </dependency>
+
     </dependencies>
 
     <build>
