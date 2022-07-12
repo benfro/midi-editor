@@ -1,4 +1,4 @@
-package net.benfro.commons;
+package net.benfro.commons.layout;
 
 import com.guigarage.css.DefaultPropertyBasedCssMetaData;
 import com.guigarage.css.SkinPropertyBasedCssMetaData;

@@ -26,7 +26,10 @@
             <artifactId>jfxtras-window</artifactId>
             <version>17-r1</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.kordamp.bootstrapfx</groupId>
+            <artifactId>bootstrapfx-core</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.miglayout</groupId>
             <artifactId>miglayout-javafx</artifactId>

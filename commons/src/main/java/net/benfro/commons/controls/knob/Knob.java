@@ -14,7 +14,7 @@ import javafx.scene.control.Skin;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import net.benfro.commons.CssHelper;
+import net.benfro.commons.layout.CssHelper;
 
 import java.util.List;
 
@@ -86,7 +86,7 @@ public class Knob extends Control {
 
     @Override
     protected Skin<?> createDefaultSkin() {
-        return new KnobSkin(this);
+        return new ZeroToMaxKnobSkin(this);
     }
 
     public final void setValue(double val) {

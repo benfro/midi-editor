@@ -7,6 +7,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import jfxtras.scene.control.window.Window;
 import net.benfro.commons.controls.knob.Knob;
+import net.benfro.commons.midi.MIDIConstants;
+import org.kordamp.bootstrapfx.BootstrapFX;
 import org.tbee.javafx.scene.layout.MigPane;
 
 /**
@@ -20,12 +22,18 @@ public class App extends Application {
 
         // create the canvas where the windows will be added to
         Pane canvas = new Pane();
+        canvas.getStyleClass().add("panel-primary");
 
         // create a scene that displays the canvas (resolution 600,600)
         Scene scene = new Scene(canvas, 600, 600);
+        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 
         // create a window with title "My Window"
         Window pluginWindow = new Window("Plugin");
+        //pluginWindow.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+        pluginWindow.getContentPane().getStyleClass().addAll("panel","panel-primary");
+        //pluginWindow.setTitleBarStyleClass("h3");
+        //pluginWindow.getStyleClass().addAll("panel-title", "default");
 
         // set the window position to 10,10 (coordinates inside canvas)
         pluginWindow.setLayoutX(10);
@@ -33,7 +41,9 @@ public class App extends Application {
 
         final MigPane contentPane = new MigPane();
         pluginWindow.setContentPane(contentPane);
-        contentPane.add(new Button("Hej!"));
+        final Button btn = new Button("Hej!");
+        btn.getStyleClass().setAll("btn","btn-primary", "btn-xs");
+        contentPane.add(btn);
         contentPane.add(new Knob());
 
         // define the initial window size
@@ -46,6 +56,11 @@ public class App extends Application {
         primaryStage.setTitle("MIDI Editor");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        MIDIConstants.getMidiDeviceInfo().forEach(i -> System.out.println(i.getDescription() + " " + i.getVersion()));
+
+        MIDIConstants.getMidiDevices().forEach(i -> System.out.println(i));
+        MIDIConstants.getSynths().forEach(i -> System.out.println(i));
     }
 
     /**
