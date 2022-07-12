@@ -18,6 +18,9 @@ import javafx.geometry.VPos;
 import javafx.scene.control.Control;
 import javafx.scene.control.SkinBase;
 
+/**
+ * Tweaked to NOT use com.sun classes
+ */
 public class CssHelper {
     public CssHelper() {
     }

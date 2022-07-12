@@ -2,24 +2,26 @@ package net.benfro.commons.controls.knob;
 
 
 import com.guigarage.css.DefaultPropertyBasedCssMetaData;
-import javafx.css.converter.PaintConverter;
-
-import java.util.List;
-
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.css.CssMetaData;
 import javafx.css.Styleable;
 import javafx.css.StyleableObjectProperty;
+import javafx.css.converter.PaintConverter;
+import javafx.event.EventHandler;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import net.benfro.commons.CssHelper;
 
+import java.util.List;
+
 
 /**
  * All glory to https://github.com/DeveloperFelix/KnobFx
+ *
  * @author F-effect
  */
 public class Knob extends Control {
@@ -41,6 +43,8 @@ public class Knob extends Control {
     private final double _angleStep;
     private final double _angleRange;
 
+    private boolean valueChanging;
+
     private StyleableObjectProperty<Paint> markerColor;
     private StyleableObjectProperty<Paint> knobFill;
     private StyleableObjectProperty<Paint> knobStroke;
@@ -57,6 +61,27 @@ public class Knob extends Control {
 
         maxText = "MAX";
         minText = "MIN";
+
+        initMouseListeners();
+    }
+
+    private void initMouseListeners() {
+        addEventFilter(MouseEvent.MOUSE_PRESSED, e -> valueChanging = true);
+        addEventFilter(MouseEvent.MOUSE_RELEASED, e -> valueChanging = false);
+        this.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            double currY = -1;
+            @Override
+            public void handle(MouseEvent event) {
+                if (currY != -1) {
+                    if (currY < event.getY()) {
+                        setValue(getValue() - 1);
+                    } else if (currY > event.getY()) {
+                        setValue(getValue() + 1);
+                    }
+                }
+                currY = event.getY();
+            }
+        });
     }
 
     @Override
