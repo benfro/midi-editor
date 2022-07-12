@@ -5,10 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.benfro</groupId>
-    <artifactId>mvn-template</artifactId>
+    <artifactId>midi-editor</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>app</module>
+        <module>commons</module>
+    </modules>
 
-    <name>mvn-template</name>
+    <name>MIDI Editor</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
@@ -18,8 +23,36 @@
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
+    <!--<repositories>
+        <repository>
+            <id>local</id>
+            <name>Local Repo</name>
+            <url>file:///Users/benfro/.m2/repository</url>
+        </repository>
+    </repositories>-->
+
     <dependencyManagement>
+
         <dependencies>
+            <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.24</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.pf4j/pf4j -->
+            <dependency>
+                <groupId>org.pf4j</groupId>
+                <artifactId>pf4j</artifactId>
+                <version>3.7.0</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.miglayout/miglayout-javafx -->
+            <dependency>
+                <groupId>com.miglayout</groupId>
+                <artifactId>miglayout-javafx</artifactId>
+                <version>11.0</version>
+            </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
@@ -51,6 +84,11 @@
     </dependencyManagement>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
