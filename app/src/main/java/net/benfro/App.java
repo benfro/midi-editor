@@ -3,11 +3,16 @@ package net.benfro;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import jfxtras.scene.control.window.Window;
 import net.benfro.commons.controls.knob.Knob;
 import net.benfro.commons.midi.MIDIConstants;
+import net.benfro.midieditor.PluginPane;
+import net.miginfocom.layout.CC;
+import net.miginfocom.layout.LC;
 import org.kordamp.bootstrapfx.BootstrapFX;
 import org.tbee.javafx.scene.layout.MigPane;
 
@@ -21,13 +26,33 @@ public class App extends Application {
     public void start(Stage primaryStage) {
 
         // create the canvas where the windows will be added to
-        Pane canvas = new Pane();
-        canvas.getStyleClass().add("panel-primary");
+        MigPane canvas = new MigPane(new LC().insetsAll("0").fill());
+        //canvas.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+        canvas.getStyleClass().setAll("panel-default");
+
+        canvas.add(createMenuBar(), new CC().growX().dockNorth());
+        canvas.add(new PluginPane(new LC().fill()), new CC().growX().growY());
 
         // create a scene that displays the canvas (resolution 600,600)
         Scene scene = new Scene(canvas, 600, 600);
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
 
+        // add the window to the canvas
+        //Window pluginWindow = getWindow();
+        //canvas.getChildren().add(pluginWindow);
+
+        // init and show the stage
+        primaryStage.setTitle("MIDI Editor");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        MIDIConstants.getMidiDeviceInfo().forEach(i -> System.out.println(i.getDescription() + " " + i.getVersion()));
+
+        MIDIConstants.getMidiDevices().forEach(i -> System.out.println(i));
+        MIDIConstants.getSynths().forEach(i -> System.out.println(i));
+    }
+
+    private Window getWindow() {
         // create a window with title "My Window"
         Window pluginWindow = new Window("Plugin");
         //pluginWindow.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
@@ -48,19 +73,12 @@ public class App extends Application {
 
         // define the initial window size
         pluginWindow.setPrefSize(300, 200);
+        return pluginWindow;
+    }
 
-        // add the window to the canvas
-        canvas.getChildren().add(pluginWindow);
-
-        // init and show the stage
-        primaryStage.setTitle("MIDI Editor");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-        MIDIConstants.getMidiDeviceInfo().forEach(i -> System.out.println(i.getDescription() + " " + i.getVersion()));
-
-        MIDIConstants.getMidiDevices().forEach(i -> System.out.println(i));
-        MIDIConstants.getSynths().forEach(i -> System.out.println(i));
+    private MenuBar createMenuBar() {
+        MenuBar menuBar = new MenuBar(new Menu("File"), new Menu("Tools"), new Menu("MIDI"));
+        return  menuBar;
     }
 
     /**
