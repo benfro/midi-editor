@@ -1,6 +1,6 @@
 package net.benfro;
 
-public class App {
+public class PluginOne {
     public static void main( String[] args )
     {
         System.out.println( "Hello World!" );

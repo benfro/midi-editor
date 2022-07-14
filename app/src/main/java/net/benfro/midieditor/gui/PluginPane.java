@@ -1,4 +1,4 @@
-package net.benfro.midieditor;
+package net.benfro.midieditor.gui;
 
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
