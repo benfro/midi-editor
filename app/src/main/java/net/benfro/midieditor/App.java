@@ -9,10 +9,14 @@ import net.benfro.commons.controls.knob.Knob;
 import net.benfro.commons.midi.MIDIConstants;
 import net.benfro.midieditor.gui.PluginPane;
 import net.benfro.midieditor.gui.MEMenuBar;
+import net.benfro.midieditor.plugins.PluginManagerWrapper;
 import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
 import org.kordamp.bootstrapfx.BootstrapFX;
+import org.pf4j.PluginWrapper;
 import org.tbee.javafx.scene.layout.MigPane;
+
+import java.util.List;
 
 /**
  * First VFXWindows tutorial.
@@ -25,6 +29,13 @@ public class App extends Application {
     private final MEMenuBar menuBar = new MEMenuBar();
     @Override
     public void start(Stage primaryStage) {
+
+        final List<PluginWrapper> loadedPlugins = PluginManagerWrapper.INSTANCE.getLoadedPlugins();
+
+        System.out.println("Number of loaded plugins: " + loadedPlugins.size());
+
+        final String pluginsDir = System.getProperty("pf4j.pluginsDir", "plugins");
+
 
         // create the canvas where the windows will be added to
         MigPane canvas = new MigPane(new LC().insetsAll("0").fill());
